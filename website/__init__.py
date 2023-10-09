@@ -1,17 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
+import os
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-DB_NAME = "code"
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'PuzzloCode'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://Leye:leye@localhost:3306/{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 
     db.init_app(app)
 
@@ -35,8 +33,3 @@ def create_app():
         return User.query.get(int(id))
 
     return app
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
