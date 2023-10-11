@@ -48,23 +48,68 @@
     </div>
 </div>
 
+<br>
+
+<div class="row">
+    <!-- JavaScript Assessment -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">JavaScript Assessment</h5>
+                <p class="card-text">Random question set from a real company.</p>
+                <br>
+                <br>
+                <button id="startJavaScriptAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="JavaScript ASSESSMENT">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Version Control System Assessment -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Version Control System</h5>
+                <p class="card-text">Random question set from a real company.</p>
+                <br>
+                <br>
+                <button id="startVcsAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="VCS ASSESSMENT">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frameworks Assessment -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Frameworks Assessment</h5>
+                <p class="card-text">Random question set from a real company.</p>
+                <br>
+                <br>
+                <button id="startFrameworksAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="Frameworks ASSESSMENT">Start</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Modal -->
 <div class="modal fade" id="assessmentModal" tabindex="-1" role="dialog" aria-labelledby="assessmentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="assessmentModalLabel">Start Assessment</h5>
+                <h4 class="modal-title" id="assessmentModalLabel">Start Assessment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Content will be updated based on the assessment type -->
-                <p id="assessmentType">Assessment Content</p>
-                <p>Each session will include up to 2 questions.</p>
-                <p>You will have 1 hour to complete all questions.</p>
-                <p>Once a mock assessment session begins, you cannot pause the timer.</p>
-                <p>The mock assessment session will end when you have successfully submitted a correct answer for each question, the allotted time has expired, or you end the session manually.</p>
+                <h6 id="assessmentType">Read the instructions.</h6>
+                <ul>
+                    <li>Each session will include up to 20 random questions.</li>
+                    <li>You will have 20 minutes to complete all questions.</li>
+                    <li>Once a mock assessment session begins, you cannot pause the timer.</li>
+                    <li>The mock assessment session will end when you have successfully submitted a correct answer for each question, the allotted time has expired, or you end the session manually.</li>
+                </ul>
                 <p>Good Luck!</p>
             </div>
             <div class="modal-footer">
