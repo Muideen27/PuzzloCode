@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from os import path
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
@@ -12,6 +13,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    # Initialize extensions
     db.init_app(app)
 
     from .views import views
@@ -21,6 +23,8 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
 
     from .models import User
+
+    migrate = Migrate(app, db)
     
     with app.app_context():
         db.create_all()

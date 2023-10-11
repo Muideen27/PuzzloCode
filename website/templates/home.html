@@ -1,5 +1,49 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% extends "base.html" %}
+{% block title %}Question Listing{% endblock %}
 
 {% block content %}
-<h1>This is the home page</h1>
+<div class="container">
+    <h1>Welcome to PuzzloCode!</h1>
+    <h2>Explore your stack!</h2>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Frontend</h3>
+                    <p>Explore coding questions for frontend development.</p>
+                </div>
+                <div class="card-footer">
+                    <!-- Add a link to frontend questions -->
+                    <a href="{{ url_for('views.frontend_questions') }}" class="btn btn-primary">Explore Frontend Questions</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Backend</h3>
+                    <p>Explore coding questions for backend development.</p>
+                </div>
+                <div class="card-footer">
+                    <!-- Add a link to backend questions -->
+                    <a href="{{ url_for('views.backend_questions') }}" class="btn btn-primary">Explore Backend Questions</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>DevOps</h3>
+                    <p>Explore coding questions for DevOps practices.</p>
+                </div>
+                <div class="card-footer">
+                    <!-- Add a link to DevOps questions -->
+                    <a href="{{ url_for('views.devops_questions') }}" class="btn btn-primary">Explore DevOps Questions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
