@@ -7,26 +7,33 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
 
-class CodingQuestion(db.Model):
+class BaseCodingQuestion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_text = db.Column(db.Text, nullable=False)
     difficulty = db.Column(db.String(50), nullable=False)
     topic = db.Column(db.String(100), nullable=False)
-
-    # Fields for multiple-choice options
     option_A = db.Column(db.String(250), nullable=True)
     option_B = db.Column(db.String(250), nullable=True)
     option_C = db.Column(db.String(250), nullable=True)
     option_D = db.Column(db.String(250), nullable=True)
-
-    # Correct answer (e.g., 'A', 'B', 'C', or 'D')
     correct_answer = db.Column(db.String(1), nullable=False)
 
-    # Additional fields you might consider:
-    # - Explanation for the correct answer
-    # - Tags or categories for better organization
-    # - Creation date or timestamp
-    # - Author or source of the question
+    __abstract__ = True
 
-    def __repr__(self):
-        return f'<CodingQuestion: {self.id}>'
+class OnlineAssessment(BaseCodingQuestion):
+    __tablename__ = 'online_assessment'
+
+class HTMLAssessment(BaseCodingQuestion):
+    __tablename__ = 'html_assessment'
+
+class CSSAssessment(BaseCodingQuestion):
+    __tablename__ = 'css_assessment'
+
+class JsAssessment(BaseCodingQuestion):
+    __tablename__ = 'js_assessment'
+
+class VCSAssessment(BaseCodingQuestion):
+    __tablename__ = 'vcs_assessment'
+
+class FrameworkAssessment(BaseCodingQuestion):
+    __tablename__ = 'fw_assessment'
