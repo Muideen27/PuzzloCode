@@ -1,11 +1,33 @@
 from . import db
 from flask_login import UserMixin
+import secrets
+import datetime
+from itsdangerous import URLSafeTimedSerializer
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
+
+    #reset password logic
+    reset_password_token = db.Column(db.String(100), unique=True, nullable=True)
+
+    def get_reset_password_token(self, expires_sec=600):
+        from website import app
+        s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id, 'reset_password': True}, salt='reset-salt')
+    
+    @staticmethod
+    def verify_reset_password_token(token):
+        from website import app
+        s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token, salt='reset-salt', max_age=600)  # Token expires in 1800 seconds (30 minutes)
+            if data.get('reset_password'):
+                return User.query.get(data['user_id'])
+        except Exception as e:
+            return None
 
 class BaseCodingQuestion(db.Model):
     id = db.Column(db.Integer, primary_key=True)

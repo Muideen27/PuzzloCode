@@ -5,8 +5,11 @@ from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from datetime import timedelta
+from flask_mail import Mail
 
 db = SQLAlchemy()
+
+mail = Mail() # creating Mail instance
 
 def create_app():
     app = Flask(__name__)
@@ -19,14 +22,22 @@ def create_app():
 
     # session timeout
     app.config['SECRET_KEY'] = 'PuzzloCode'
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=2)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
 
     # Keep Sessions Alive
     @app.before_request
     def session_timeout():
         session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes=30)  # Set your preferred session timeout
+        app.permanent_session_lifetime = timedelta(minutes=1)  # Set your preferred session timeout
 
+    # Configuration for Flask-Mail
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'mycolorfullife27@gmail.com'
+    app.config['MAIL_PASSWORD'] = os.environ.get("FLASK_APP_PASSWORD")
+
+    # Registering all blueprints
     from .views import views
     from .auth import auth
     from .assessment import assessment
