@@ -20,6 +20,19 @@ class BaseCodingQuestion(db.Model):
 
     __abstract__ = True
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'question_text': self.question_text,
+            'difficulty': self.difficulty,
+            'topic': self.topic,
+            'option_A': self.option_A,
+            'option_B': self.option_B,
+            'option_C': self.option_C,
+            'option_D': self.option_D,
+            'correct_answer': self.correct_answer
+    }
+
 class OnlineAssessment(BaseCodingQuestion):
     __tablename__ = 'online_assessment'
 

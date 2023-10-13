@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 import os
 from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from datetime import timedelta
 
 db = SQLAlchemy()
 
@@ -12,15 +13,27 @@ def create_app():
     app.config['SECRET_KEY'] = 'PuzzloCode'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+        
     # Initialize extensions
     db.init_app(app)
 
+    # session timeout
+    app.config['SECRET_KEY'] = 'PuzzloCode'
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=2)
+
+    # Keep Sessions Alive
+    @app.before_request
+    def session_timeout():
+        session.permanent = True
+        app.permanent_session_lifetime = timedelta(minutes=30)  # Set your preferred session timeout
+
     from .views import views
     from .auth import auth
+    from .assessment import assessment
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(assessment, url_prefix='/')
 
     from .models import User
 
@@ -30,8 +43,9 @@ def create_app():
         db.create_all()
 
     login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
+    
 
     @login_manager.user_loader
     def load_user(id):
