@@ -21,7 +21,6 @@ def create_app():
     db.init_app(app)
 
     # session timeout
-    app.config['SECRET_KEY'] = 'PuzzloCode'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
 
     # Keep Sessions Alive
@@ -36,6 +35,9 @@ def create_app():
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USERNAME'] = 'mycolorfullife27@gmail.com'
     app.config['MAIL_PASSWORD'] = os.environ.get("FLASK_APP_PASSWORD")
+    app.config['MAIL_DEBUG'] = True
+
+    mail = Mail(app) # creating Mail instance
 
     # Registering all blueprints
     from .views import views
