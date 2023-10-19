@@ -2,123 +2,176 @@
 {% block title %}Frontend Puzzle{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Frontend Puzzle</h1>
+<div id="contentContainer">
+    <div class="container">
+        <h1>Frontend Puzzle</h1>
+        <br>
+        <h4>Prepare yourself. Start a practice assessment from a collection of real company questions.</h4>
+        
+        <div class="row">
+        <!-- Online Assessment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Online Assessment</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startOnlineAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="ONLINE ASSESSMENT">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HTML Assessment -->
+        <div class="col-md-4">
+            <div id="questionsList"></div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">HTML Assessment</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startHtmlAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="HTML ASSESSMENT">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSS Assessment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">CSS Assessment</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startCssAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="CSS ASSESSMENT">Start</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br>
-    <h4>Prepare yourself. Start a practice assessment from a collection of real company questions.</h4>
-    
+
     <div class="row">
-    <!-- Online Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Online Assessment</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startOnlineAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="ONLINE ASSESSMENT">Start</button>
+        <!-- JavaScript Assessment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">JavaScript Assessment</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startJavaScriptAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="JavaScript ASSESSMENT">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version Control System Assessment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Version Control System</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startVcsAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="VCS ASSESSMENT">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frameworks Assessment -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Frameworks Assessment</h5>
+                    <p class="card-text">Random question set from a real company.</p>
+                    <br>
+                    <br>
+                    <button id="startFrameworksAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="Frameworks ASSESSMENT">Start</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- HTML Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">HTML Assessment</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startHtmlAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="HTML ASSESSMENT">Start</button>
+        <!-- Modal -->
+    <div class="modal fade" id="assessmentModal" tabindex="-1" role="dialog" aria-labelledby="assessmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="assessmentModalLabel">Start Assessment</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be updated based on the assessment type -->
+                    <h6 id="assessmentType">Read the instructions.</h6>
+                    <ul>
+                        <li>Each session will include up to 20 random questions.</li>
+                        <li>You will have 20 minutes to complete all questions.</li>
+                        <li>Once a mock assessment session begins, you cannot pause the timer.</li>
+                        <li>The mock assessment session will end when you have successfully submitted a correct answer for each question, the allotted time has expired, or you end the session manually.</li>
+                    </ul>
+                    <p>Good Luck!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <!-- The URL will be updated dynamically based on the assessment type -->
+                    <a id="startAssessmentLink" href="#" class="btn btn-primary">Start Mock Assessment</a>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- CSS Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">CSS Assessment</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startCssAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="CSS ASSESSMENT">Start</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
-
-<div class="row">
-    <!-- JavaScript Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">JavaScript Assessment</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startJavaScriptAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="JavaScript ASSESSMENT">Start</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Version Control System Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Version Control System</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startVcsAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="VCS ASSESSMENT">Start</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Frameworks Assessment -->
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Frameworks Assessment</h5>
-                <p class="card-text">Random question set from a real company.</p>
-                <br>
-                <br>
-                <button id="startFrameworksAssessmentButton" class="btn btn-primary" data-toggle="modal" data-target="#assessmentModal" data-content="Frameworks ASSESSMENT">Start</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal -->
-<div class="modal fade" id="assessmentModal" tabindex="-1" role="dialog" aria-labelledby="assessmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="assessmentModalLabel">Start Assessment</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Content will be updated based on the assessment type -->
-                <h6 id="assessmentType">Read the instructions.</h6>
-                <ul>
-                    <li>Each session will include up to 20 random questions.</li>
-                    <li>You will have 20 minutes to complete all questions.</li>
-                    <li>Once a mock assessment session begins, you cannot pause the timer.</li>
-                    <li>The mock assessment session will end when you have successfully submitted a correct answer for each question, the allotted time has expired, or you end the session manually.</li>
-                </ul>
-                <p>Good Luck!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <!-- The URL will be updated dynamically based on the assessment type -->
-                <a id="startAssessmentLink" href="#" class="btn btn-primary">Start Mock Assessment</a>
-            </div>
-        </div>
-    </div>
-</div>
-
+    <script>
+        // Function to generate question HTML
+        function generateQuestionHTML(questions) {
+            let html = '<ul>';
+            questions.forEach((question, index) => {
+            html += `<li>Question ${index + 1}: ${question.text}</li>`;
+            });
+            html += '</ul>';
+            return html;
+        }
+        
+        // Function to fetch questions and replace the content
+        function fetchQuestionsAndReplaceContent() {
+            // Perform an HTTP request to fetch questions
+            fetch('/api/questions') // Adjust the URL to match your backend endpoint
+            .then((response) => {
+                if (response.ok) {
+                return response.json();
+                } else {
+                throw new Error('Error fetching questions');
+                }
+            })
+            .then((data) => {
+                // Handle the data (e.g., generate question HTML)
+                const contentContainer = document.getElementById('contentContainer');
+                contentContainer.innerHTML = generateQuestionHTML(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const startHtmlAssessmentButton = document.getElementById('startHtmlAssessmentButton');
+            const startAssessmentLink = document.getElementById('startAssessmentLink');
+        
+            startHtmlAssessmentButton.addEventListener('click', function () {
+            // Show the modal
+            $('#assessmentModal').modal('show');
+            });
+        
+            startAssessmentLink.addEventListener('click', function () {
+            // Close the modal if needed
+            $('#assessmentModal').modal('hide');
+        
+            // Fetch questions and replace the content
+            fetchQuestionsAndReplaceContent();
+            });
+        });
+        </script>
+      
+</div>  
 {% endblock %}

@@ -1,22 +1,18 @@
-from flask import Blueprint, jsonify
-from .models import HTMLAssessment, CSSAssessment  # Import all relevant models
+from flask import Blueprint, jsonify, request  # Import 'request'
+from .models import HTMLAssessment, CSSAssessment
 from sqlalchemy.sql.expression import func
 from flask_login import login_required, current_user
 
 assessment = Blueprint('assessment', __name__)
 
-@assessment.route('/html-assessment-questions', methods=['GET'])
+@assessment.route('/api/questions', methods=['GET'])  # Adjust the route to /api/questions
 @login_required
-def get_html_assessment_questions():
-    # Check if the user is authenticated
+def get_assessment_questions():
     if current_user.is_authenticated:
-        # Query the database for random HTML assessment questions
-        questions = HTMLAssessment.query.order_by(func.random()).limit(1).all()
+        question_count = int(request.args.get('count', 1))  # Get the number of questions requested
+        questions = HTMLAssessment.query.order_by(func.random()).limit(question_count).all()
 
-        # Convert the questions to a JSON format
         questions_json = [question.to_dict() for question in questions]
-    
-        # Return the questions as a JSON response
         return jsonify(questions_json)
     else:
-        return "You must be logged in to access this page"
+        return jsonify(error="You must be logged in to access this page"), 403

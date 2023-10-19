@@ -21,13 +21,13 @@ def create_app():
     db.init_app(app)
 
     # session timeout
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
 
     # Keep Sessions Alive
     @app.before_request
     def session_timeout():
         session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes=1)  # Set your preferred session timeout
+        app.permanent_session_lifetime = timedelta(hours=1)  # Set your preferred session timeout
 
     # Configuration for Flask-Mail
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
