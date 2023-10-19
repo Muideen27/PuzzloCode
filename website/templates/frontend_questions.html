@@ -123,55 +123,103 @@
         </div>
     </div>
     <script>
-        // Function to generate question HTML
-        function generateQuestionHTML(questions) {
-            let html = '<ul>';
-            questions.forEach((question, index) => {
-            html += `<li>Question ${index + 1}: ${question.text}</li>`;
-            });
-            html += '</ul>';
-            return html;
+    let currentQuestionIndex = 0;
+    let questions = []; // Define an array to store the questions
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const startHtmlAssessmentButton = document.getElementById('startHtmlAssessmentButton');
+        const startAssessmentLink = document.getElementById('startAssessmentLink');
+    
+        startHtmlAssessmentButton.addEventListener('click', function () {
+            // Show the modal
+            $('#assessmentModal').modal('show');
+        });
+    
+        startAssessmentLink.addEventListener('click', function () {
+            // Close the modal if needed
+            $('#assessmentModal').modal('hide');
+    
+            // Fetch questions and replace the content
+            fetchQuestionsAndReplaceContent();
+        });
+    });
+    
+    function nextQuestion() {
+        // Get the user's selected answer for the current question
+        const selectedAnswer = document.querySelector(`input[name="question_${currentQuestionIndex}"]:checked`);
+    
+        if (selectedAnswer) {
+            // Save the user's answer (you can save it in an array or database)
+            const answer = selectedAnswer.value;
+            console.log(`User selected answer for question ${currentQuestionIndex + 1}: ${answer}`); // Update to display the correct question number
+    
+            // Move to the next question
+            currentQuestionIndex++;
+    
+            // Check if there is a next question
+            if (currentQuestionIndex < questions.length) {
+                // Render the next question
+                renderNextQuestion(currentQuestionIndex);
+            } else {
+                // No more questions; you can show a completion message or perform other actions
+                console.log('All questions answered. Assessment completed.');
+            }
+        } else {
+            // Prompt the user to select an answer before moving to the next question
+            alert('Please select an answer before moving to the next question.');
         }
-        
-        // Function to fetch questions and replace the content
-        function fetchQuestionsAndReplaceContent() {
-            // Perform an HTTP request to fetch questions
-            fetch('/api/questions') // Adjust the URL to match your backend endpoint
+    }
+    
+    function renderNextQuestion(index) {
+        // Check if there is a next question to render
+        if (index < questions.length) {
+            const nextQuestion = questions[index];
+            const contentContainer = document.getElementById('contentContainer');
+    
+            // Generate HTML for the next question
+            const questionHTML = generateQuestionHTML(nextQuestion, index);
+    
+            // Replace the content with the next question
+            contentContainer.innerHTML = questionHTML;
+        }
+    }
+    
+    function generateQuestionHTML(question, index) {
+        // Generate HTML for a single question
+        let html = `<ul>`;
+        html += `<li>Question ${index + 1}: ${question.question_text}</li>`;
+        html += `<ul type="A">`;
+        html += `<li><input type="radio" name="question_${index}" value="A"> A. ${question.option_A}</li>`;
+        html += `<li><input type="radio" name="question_${index}" value="B"> B. ${question.option_B}</li>`;
+        html += `<li><input type="radio" name="question_${index}" value="C"> C. ${question.option_C}</li>`;
+        html += `<li><input type="radio" name="question_${index}" value="D"> D. ${question.option_D}</li>`;
+        html += `</ul>`;
+        html += `<button onclick="nextQuestion()">Next</button>`; // Add a "Next" button
+        html += `</ul>`;
+        return html;
+    }
+    
+    // Function to fetch questions and replace the content
+    function fetchQuestionsAndReplaceContent() {
+        // Perform an HTTP request to fetch questions
+        fetch('/api/questions') // Adjust the URL to match your backend endpoint
             .then((response) => {
                 if (response.ok) {
-                return response.json();
+                    return response.json();
                 } else {
-                throw new Error('Error fetching questions');
+                    throw new Error('Error fetching questions');
                 }
             })
             .then((data) => {
-                // Handle the data (e.g., generate question HTML)
-                const contentContainer = document.getElementById('contentContainer');
-                contentContainer.innerHTML = generateQuestionHTML(data);
+                questions = data; // Store the fetched questions in the array
+                renderNextQuestion(currentQuestionIndex); // Display the first question
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-        }
-        
-        document.addEventListener('DOMContentLoaded', function () {
-            const startHtmlAssessmentButton = document.getElementById('startHtmlAssessmentButton');
-            const startAssessmentLink = document.getElementById('startAssessmentLink');
-        
-            startHtmlAssessmentButton.addEventListener('click', function () {
-            // Show the modal
-            $('#assessmentModal').modal('show');
-            });
-        
-            startAssessmentLink.addEventListener('click', function () {
-            // Close the modal if needed
-            $('#assessmentModal').modal('hide');
-        
-            // Fetch questions and replace the content
-            fetchQuestionsAndReplaceContent();
-            });
-        });
-        </script>
-      
-</div>  
+    }
+    
+</script>
+</div>
+ 
 {% endblock %}
