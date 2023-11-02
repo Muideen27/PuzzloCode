@@ -23,4 +23,4 @@ psycopg2-binary==2.9.7
 SQLAlchemy==1.4.25
 typing_extensions==4.7.1
 Werkzeug==2.0.2
-WTForms==3.1.0
+WTForms==3.0.0
